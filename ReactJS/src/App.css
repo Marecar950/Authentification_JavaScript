@@ -1,0 +1,65 @@
+h1, .bouton {
+  text-align: center;
+}
+
+h2 {
+  text-align: center;
+  color: blue;
+}
+
+.card {
+  max-width: 410px;
+  padding: 30px;
+  margin: auto;
+  background-color: #66CDAA;
+}
+
+.profile-image {
+  width: 180px;
+  border-radius: 50%;
+  margin: auto;
+}
+
+.label, .inscription {
+  margin-top: 18px;
+}
+
+.erreur-message, .email_erreur {
+  color :red;
+  font-size: 20px;
+}
+
+#Success {
+  text-align: center;
+  height: 50px;
+  line-height: 15px;
+}
+
+.connexion_erreur {
+  color: red;
+  text-align: center;
+}
+
+.nom {
+  color: blue;
+}
+
+.password {
+  color: darkblue;
+}
+  
+.bouton_logout {
+  font-size: 20px;
+}
+
+.form-group {
+  text-align: center;
+}
+
+.texte {
+  color: green;
+}
+
+#passwordSuccess {
+  margin-top: 30px;
+} 
