@@ -82,6 +82,8 @@ app.post("/connexion", (req, res) => {
 app.post("/verification_mail", (req, res) => {
   const email = req.body.email;
   
+  if(email != "") {
+  
   db.query("SELECT email from utilisateurs where email = ? ", email, (err, result) => {
   
     if(err) {
@@ -94,6 +96,7 @@ app.post("/verification_mail", (req, res) => {
         res.send(result);
     }
   });
+  }
 }); 
 
 app.post("/confirmation_password", (req, res) => {
