@@ -29,7 +29,7 @@ import avatar from "./avatar.png";
     
     const validation = (valeur) => {
     const erreur = {};
-    const regex = /^[a-zA-Z0-9.]+@[a-z0-9]+.[a-z]{2,3}/;
+    const regex = /^[a-zA-Z0-9.-_]+@[a-z0-9]+.[a-z]{2,3}/;
     
       if (valeur.username.trim() === "") {
         erreur.username = "Le nom d'utilisateur est obligatoire !";
