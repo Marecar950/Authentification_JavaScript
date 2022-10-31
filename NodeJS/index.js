@@ -23,7 +23,7 @@ db.connect(err=>{
 
 app.post("/inscription", (req, res) => {
   const username = req.body.username;
-  const email = req.body.email;
+  const mail = req.body.mail;
   const prenom = req.body.prenom;
   const password = req.body.password;
   const confirm_password = req.body.confirm_password;
@@ -31,7 +31,7 @@ app.post("/inscription", (req, res) => {
  
   const passwordBcrypt = bcrypt.hashSync(password, 10);
   
-   if(username != "" && prenom != "" && email != "" && regex.test(email)  && password != "" && confirm_password != "" && password == confirm_password) {
+   if(username != "" && prenom != "" && mail != "" && regex.test(mail)  && password != "" && confirm_password != "" && password == confirm_password) {
     
     db.query("INSERT INTO utilisateurs (nom, prenom, email, password) SELECT * FROM (SELECT ? AS nom, ? AS prenom, ? AS email, ? AS password) AS tmp WHERE NOT EXISTS (SELECT email FROM utilisateurs WHERE email = ?)",
     [username, prenom, email, passwordBcrypt, email], 
@@ -52,16 +52,16 @@ app.post("/inscription", (req, res) => {
 }); 
 
 app.post("/connexion", (req, res) => {
-  const email = req.body.email;
+  const mail = req.body.mail;
   const password = req.body.password;
     
-    db.query("SELECT * FROM utilisateurs WHERE email = ?", email, function(err, result) {
+    db.query("SELECT * FROM utilisateurs WHERE email = ?", mail, function(err, result) {
     
       if(err) {
         console.log(err);
       }
       
-      if(email != "" && password != "") {
+      if(mail != "" && password != "") {
       
       if(result.length > 0) {
         bcrypt.compare(password, result[0].password, (error, results) => {
@@ -80,18 +80,18 @@ app.post("/connexion", (req, res) => {
 });  
 
 app.post("/verification_mail", (req, res) => {
-  const email = req.body.email;
+  const mail = req.body.mail;
   
-  if(email != "") {
+  if(mail != "") {
   
-  db.query("SELECT email from utilisateurs where email = ? ", email, (err, result) => {
+  db.query("SELECT email from utilisateurs where email = ? ", mail, (err, result) => {
   
     if(err) {
       console.log(err);
     }
     
     if(!result.length > 0) {
-      res.send({ message: "Email incorrect !" });
+      res.send({ message: "Adresse email incorrect !" });
     } else {
         res.send(result);
     }
@@ -102,13 +102,13 @@ app.post("/verification_mail", (req, res) => {
 app.post("/confirmation_password", (req, res) => {
   const password = req.body.password;
   const confirmation_password = req.body.confirmation_password;
-  const email = req.body.email;
+  const mail = req.body.mail;
   
   const passwordBcrypt = bcrypt.hashSync(password, 10);
   
   if(password != "" && confirmation_password != "" && password === confirmation_password) {
   
-  db.query("UPDATE utilisateurs SET password = ? where email = ?", [passwordBcrypt, email], (err, result) => {
+  db.query("UPDATE utilisateurs SET password = ? where email = ?", [passwordBcrypt, mail], (err, result) => {
   
     if(err) {
       console.log(err);
