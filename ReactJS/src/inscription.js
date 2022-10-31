@@ -7,7 +7,7 @@ import avatar from "./avatar.png";
     const [formValeur, setFormValeur] = useState({
       username: "",
       prenom: "",
-      email: "",
+      mail: "",
       password: "",
       confirm_password: "",
       messag: "",
@@ -20,7 +20,7 @@ import avatar from "./avatar.png";
     };
 
     const [formErreur, setFormErreur] = useState('');
-    const [emailErreur, setEmailErreur] = useState('');
+    const [mailErreur, setMailErreur] = useState('');
   
     const handleSubmit = (e) => {
       e.preventDefault();
@@ -37,10 +37,10 @@ import avatar from "./avatar.png";
       if (valeur.prenom.trim() === "") {
         erreur.prenom = "Le prénom est obligatoire !";
       } 
-      if (valeur.email.trim() === "") {
-        erreur.email = "L'adresse email est obligatoire !";
-      } else if (!regex.test(valeur.email)) {
-          erreur.email = "Ceci n'est pas une adresse email valide !";
+      if (valeur.mail.trim() === "") {
+        erreur.mail = "L'adresse mail est obligatoire !";
+      } else if (!regex.test(valeur.mail)) {
+          erreur.mail = "L'adresse mail est invalide !";
       }
       if (valeur.password === "") {
         erreur.password = "Le mot de passe est obligatoire !";
@@ -59,13 +59,13 @@ import avatar from "./avatar.png";
       Axios.post("https://node-express-authentification.herokuapp.com/inscription", {
         username: formValeur.username,
         prenom: formValeur.prenom,
-        email: formValeur.email,
+        mail: formValeur.mail,
         password: formValeur.password,
         confirm_password: formValeur.confirm_password,
       }).then((response) => {
         
       if(response.data.message) {
-        setEmailErreur(response.data.message);
+        setMailErreur(response.data.message);
       } else {
           setFormValeur({
             messag: response.data.messag,
@@ -96,12 +96,12 @@ import avatar from "./avatar.png";
        <input type="text" name="prenom" placeholder="Entrez votre prénom :" className="form-control" onChange={handleChange} />
        <p>{formErreur.prenom &&<div className='erreur-message'>{formErreur.prenom}</div>}</p>
 
-       <label>Email</label>
-       <input type="text" name="email" placeholder="Entrez votre email :" className="form-control" onChange={handleChange} />
-       <p>{formErreur.email &&<div className='erreur-message'>{formErreur.email}</div>}</p>
+       <label>Mail</label>
+       <input type="text" name="mail" placeholder="Entrez votre mail :" className="form-control" onChange={handleChange} />
+       <p>{formErreur.mail &&<div className='erreur-message'>{formErreur.mail}</div>}</p>
 
        <div className="email_erreur">
-         <p>{emailErreur}</p>
+         <p>{mailErreur}</p>
        </div>
 
        <label>Mot de passe</label>

@@ -19,7 +19,7 @@ import { useState, useEffect } from "react";
      <h5>Voici vos informations personnelles :</h5><br />
      <p>Votre nom : {data.nom}</p>
      <p>Votre prénom : {data.prenom}</p>
-     <p>Votre email : {data.mail}</p>
+     <p>Votre mail : {data.mail}</p>
     </div>
    )
   };

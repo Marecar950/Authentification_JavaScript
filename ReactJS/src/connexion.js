@@ -10,7 +10,7 @@ import Contexte from "./contexte.js";
    const { isAuthenticated, login, logout } = useContext(Contexte);
   
    const [formValeur, setFormValeur] = useState({
-     email: "",
+     mail: "",
      password: ""
    });
 
@@ -39,8 +39,8 @@ import Contexte from "./contexte.js";
    const validation = (valeur) => {
     const erreur = {};
     
-    if (valeur.email.trim() === "") {
-      erreur.email = "Veuillez entrez votre adresse email !";
+    if (valeur.mail.trim() === "") {
+      erreur.mail = "Veuillez entrez votre adresse mail !";
     } if (!valeur.password) {
         erreur.password = "Veuillez entrez votre mot de passe !";
       } 
@@ -50,7 +50,7 @@ import Contexte from "./contexte.js";
    const Connecter  = () => {
     
      Axios.post("https://node-express-authentification.herokuapp.com/connexion", {
-      email: formValeur.email,
+      mail: formValeur.mail,
       password: formValeur.password,
      }).then((response) => {
       
@@ -88,9 +88,9 @@ import Contexte from "./contexte.js";
     <form onSubmit={handleSubmit}>
     <div className="label">
     
-      <label>Email</label>
-      <input type="text" name="email" placeholder="Entrez votre email :" className="form-control" onChange={handleChange} />
-      <p>{formErreur.email &&<div className='erreur-message'>{formErreur.email}</div>}</p>
+      <label>Mail</label>
+      <input type="text" name="mail" placeholder="Entrez votre mail :" className="form-control" onChange={handleChange} />
+      <p>{formErreur.mail &&<div className='erreur-message'>{formErreur.mail}</div>}</p>
 
       <label>Mot de passe</label>
       <input type="password" name="password" placeholder="Entrez votre mot de passe :" className="form-control" onChange={handleChange} />

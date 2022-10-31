@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import Axios from "axios";
 
   function VerificationMail() {
-    const [email, setEmail] = useState({
-      valeurEmail: ""
+    const [mail, setMail] = useState({
+      valeurMail: ""
     });
     
     const navigate = useNavigate();
@@ -12,46 +12,46 @@ import Axios from "axios";
     const [error, setError] = useState('');
     const [formErreur, setFormErreur] = useState('');
     
-    const [emailSuccess, setEmailSuccess] = useState({
-      email: ""
+    const [mailSuccess, setMailSuccess] = useState({
+      mail: ""
     });
     
     const handleChange = (e) => {
       const { name, value } = e.target;
-      setEmail({...email, [name]: value});
+      setMail({...mail, [name]: value});
     }
       
     const handleSubmit = (e) => {
       e.preventDefault();
-      setFormErreur(verification(email));  
+      setFormErreur(verification(mail));  
     }
     
     const verification = (valeur) => {
      const erreur = {};
     
-    if(valeur.valeurEmail.trim() === "") {
-      erreur.valeurEmail = "Veuillez entrer l'adresse mail !";
+    if(valeur.valeurMail.trim() === "") {
+      erreur.valeurMail = "Veuillez entrer l'adresse mail !";
     }
      return erreur;
     }
     
     const Verifier = () => {
       Axios.post("https://node-express-authentification.herokuapp.com/verification_mail", {
-        email: email.valeurEmail,
+        mail: mail.valeurMail,
       }).then((response) => {
         if(response.data.message) {
           setError(response.data.message);
         } else {
-            setEmailSuccess({
-              email: response.data[0].email
+            setMailSuccess({
+              mail: response.data[0].email
             });
         }
       });
     }
         
-      if(emailSuccess.email) {
+      if(mailSuccess.mail) {
         navigate("/confirmation_password");
-        window.localStorage.setItem("email", JSON.stringify(emailSuccess));
+        window.localStorage.setItem("mail", JSON.stringify(mailSuccess));
       }
       
     return (
@@ -60,8 +60,8 @@ import Axios from "axios";
       <div className="card">
        <form onSubmit={handleSubmit}>
         <div className="form-group">
-         <input type="text" name="valeurEmail" className="form-control" placeholder="Entrez la confirmation de l'adresse mail :" onChange={handleChange} />
-         <p>{formErreur.valeurEmail &&<div class="alert alert-danger">{formErreur.valeurEmail}</div>}</p>
+         <input type="text" name="valeurMail" className="form-control" placeholder="Entrez la confirmation de l'adresse mail :" onChange={handleChange} />
+         <p>{formErreur.valeurMail &&<div class="alert alert-danger">{formErreur.valeurMail}</div>}</p>
          {error && (
            <p><div className="alert alert-danger">{error}</div></p>
          )}

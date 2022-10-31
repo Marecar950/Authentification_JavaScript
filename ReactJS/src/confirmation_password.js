@@ -42,24 +42,24 @@ import Axios from "axios";
     }
     
     useEffect(() => {
-      const resultat = JSON.parse(localStorage.getItem('email'));
+      const resultat = JSON.parse(localStorage.getItem('mail'));
        setData(resultat);   
     }, []);
     
     const Confirmer = () => {
       Axios.post("https://node-express-authentification.herokuapp.com/confirmation_password", {
-        email: data.email,
+        mail: data.mail,
         password: password.Password,
         confirmation_password: password.ConfirmPassword
       }).then((response) => {
         if(response.data.messag) {
           setSuccess(response.data.messag);
-          window.localStorage.removeItem("email");
+          window.localStorage.removeItem("mail");
         } 
       });
     }
     
-    const valeur = window.localStorage.getItem("email");
+    const valeur = window.localStorage.getItem("mail");
       if(!valeur) {
         navigate('/connexion');
       }
